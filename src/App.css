@@ -4,3 +4,18 @@
   line-height: 50vh;
   flex-direction:columns;
 } */
+
+.card{
+  width:300;
+  height:300;
+ border: 5px solid blue;
+flex-wrap:wrap;
+
+  
+}
+card::hover{
+
+ background-color:red;
+ opacity:.0
+  
+}

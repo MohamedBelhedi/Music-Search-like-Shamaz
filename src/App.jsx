@@ -5,7 +5,7 @@ import ReactAudioPlayer from 'react-audio-player'
 import papercss from 'papercss'
 export default function App() {
   const [search, setSearch] = useState("")
-  const [result, setResult] = useState([])
+  const [result, setResult] = useState("")
   const [music, setMusic] = useState([])
   const [vis, setVis] = useState(true)
   const [imgUri, settImgUri] = useState(["https://images.pexels.com/photos/1606655/pexels-photo-1606655.jpeg?cs=srgb&dl=pexels-suvan-chowdhury-1606655.jpg&fm=jpg"])
@@ -21,6 +21,8 @@ export default function App() {
         'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
       }
     };
+
+
     if (e.key === "Enter") {
       axios.request(options).then(function(response) {
         console.log(response.data.tracks.hits[0]);
@@ -55,22 +57,24 @@ export default function App() {
   useEffect(() => {
 
 
-
   }, [])
   return (
     <>
-      <div className="d-flex justify-content-center align-self-center col">
+      <div className="card d-flex justify-content-center align-self-center col">
 
         <input onChange={(e) => {
           console.log(e.target.value)
           setSearch(e.target.value)
+          { e.target.value.length === 0 ? setResult("Search for new song") | settImgUri("https://images.pexels.com/photos/1606655/pexels-photo-1606655.jpeg?cs=srgb&dl=pexels-suvan-chowdhury-1606655.jpg&fm=jpg") : null }
+          console.log(e.target.value.length)
         }} value={search} placeholder="search words from the lyrics...." onKeyPress={fetchData} />
-        <h1>{result.title === 0 ? <h1>not found</h1> : result.title}</h1>
-        <h1>{result.subtitle}</h1>
+        <h3>{result.subtitle}</h3>
+
+        <h4>{result.title === 0 ? <h4>not found</h4> : result.title}</h4>
         {vis ? <>
           <div className="flex-md-column" >
 
-            {imgUri === [] ? settImgUri("https://images.pexels.com/photos/1606655/pexels-photo-1606655.jpeg?cs=srgb&dl=pexels-suvan-chowdhury-1606655.jpg&fm=jpg") : <img style={{ width: 300, height: 300 }} src={imgUri} alt={imgUri} />}
+            {imgUri === 0 ? settImgUri("https://images.pexels.com/photos/1606655/pexels-photo-1606655.jpeg?cs=srgb&dl=pexels-suvan-chowdhury-1606655.jpg&fm=jpg") : <img style={{ width: 300, height: 300 }} src={imgUri} alt={imgUri} />}
 
             <ReactAudioPlayer
               src={music.uri === undefined ? null : music.uri}
